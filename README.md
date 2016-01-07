@@ -19,13 +19,13 @@ Run
 ---
 
 Parameters:
-* ADVERTISED_HOST - external host 
-* ADVERTISED_PORT - external port
-* ZK_CHROOT - zookeeper chroot dir
-* LOG_RETENTION_HOURS - duration to keep a kafka partition log
-* LOG_RETENTION_BYTES - number of bytes after which partition log gets deleted if exceeding the set amount
-* NUM_PARTITIONS - default number of partitions per topic
-* KAFKA_LOGS_DIR - partition logs dir
+* `ADVERTISED_HOST` - external host 
+* `ADVERTISED_PORT` - external port
+* `ZK_CHROOT` - zookeeper chroot dir
+* `LOG_RETENTION_HOURS` - duration to keep a kafka partition log
+* `LOG_RETENTION_BYTES` - number of bytes after which partition log gets deleted if exceeding the set amount
+* `NUM_PARTITIONS` - default number of partitions per topic
+* `KAFKA_LOGS_DIR` - partition logs dir
 
 ```bash
 docker run -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`docker-machine ip \`docker-machine active\`` --env ADVERTISED_PORT=9092 spotify/kafka
