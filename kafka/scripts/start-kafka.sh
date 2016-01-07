@@ -57,10 +57,10 @@ if [ ! -z "$NUM_PARTITIONS" ]; then
     sed -r -i "s/(num.partitions)=(.*)/\1=$NUM_PARTITIONS/g" $KAFKA_HOME/config/server.properties
 fi
 
-# Enable/disable auto creation of topics
-if [ ! -z "$AUTO_CREATE_TOPICS" ]; then
-    echo "auto.create.topics.enable: $AUTO_CREATE_TOPICS"
-    echo "auto.create.topics.enable=$AUTO_CREATE_TOPICS" >> $KAFKA_HOME/config/server.properties
+# Configure Kafka partition logs dir
+if [ ! -z "$KAFKA_LOGS_DIR" ]; then
+    echo "kafka partition logs dir: $KAFKA_LOGS_DIR"
+    sed -r -i "s/(log.dirs)=(.*)/\1=$KAFKA_LOGS_DIR/g" $KAFKA_HOME/config/server.properties
 fi
 
 # Run Kafka
