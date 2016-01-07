@@ -59,6 +59,8 @@ fi
 
 # Configure Kafka partition logs dir
 if [ ! -z "$KAFKA_LOGS_DIR" ]; then
+    mkdir -p $KAFKA_LOGS_DIR
+    
     echo "kafka partition logs dir: $KAFKA_LOGS_DIR"
     sed -r -i "s/(log.dirs)=(.*)/\1=$KAFKA_LOGS_DIR/g" $KAFKA_HOME/config/server.properties
 fi
