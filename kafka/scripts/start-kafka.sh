@@ -65,5 +65,8 @@ if [ ! -z "$KAFKA_LOGS_DIR" ]; then
     mkdir -p $KAFKA_LOGS_DIR
 fi
 
+# This is a single node image, so do not replicate the consumer offsets
+sed -r -i "s|(offsets.topic.replication.factor)=(.*)|\1=3|g" $KAFKA_HOME/config/server.properties
+
 # Run Kafka
 $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
