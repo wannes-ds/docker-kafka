@@ -7,17 +7,13 @@
 # * LOG_RETENTION_HOURS: the minimum age of a log file in hours to be eligible for deletion (default is 168, for 1 week)
 # * LOG_RETENTION_BYTES: configure the size at which segments are pruned from the log, (default is 1073741824, for 1GB)
 # * NUM_PARTITIONS: configure the default number of log partitions per topic
-
-# Configure advertised host/port if we run in helios
-if [ ! -z "$HELIOS_PORT_kafka" ]; then
-    ADVERTISED_HOST=`echo $HELIOS_PORT_kafka | cut -d':' -f 1 | xargs -n 1 dig +short | tail -n 1`
-    ADVERTISED_PORT=`echo $HELIOS_PORT_kafka | cut -d':' -f 2`
-fi
+# * MAX_MESSAGE_SIZE: set max message size
 
 # Set the external host and port
 if [ ! -z "$ADVERTISED_HOST" ]; then
     echo "advertised host: $ADVERTISED_HOST"
     sed -r -i "s/#(advertised.host.name)=(.*)/\1=$ADVERTISED_HOST/g" $KAFKA_HOME/config/server.properties
+    sed -r -i "s/#(host.name)=(.*)/\1=$ADVERTISED_HOST/g" $KAFKA_HOME/config/server.properties
 fi
 if [ ! -z "$ADVERTISED_PORT" ]; then
     echo "advertised port: $ADVERTISED_PORT"
@@ -55,6 +51,12 @@ fi
 if [ ! -z "$NUM_PARTITIONS" ]; then
     echo "default number of partition: $NUM_PARTITIONS"
     sed -r -i "s/(num.partitions)=(.*)/\1=$NUM_PARTITIONS/g" $KAFKA_HOME/config/server.properties
+fi
+
+# Configure the max message size
+if [ ! -z "$MAX_MESSAGE_SIZE" ]; then
+        echo "max message size: $MAX_MESSAGE_SIZE"
+        echo "message.max.bytes=$MAX_MESSAGE_SIZE" >> $KAFKA_HOME/config/server.properties
 fi
 
 # Configure Kafka partition logs dir

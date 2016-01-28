@@ -15,6 +15,8 @@ in the same container. This means:
 Run
 ---
 
+**Set the hostname of the docker container to the public DNS name, and set `$ADVERTISED_HOST` to the hostname of the container**
+
 Parameters:
 * `ADVERTISED_HOST` - external host 
 * `ADVERTISED_PORT` - external port
@@ -23,6 +25,7 @@ Parameters:
 * `LOG_RETENTION_BYTES` - number of bytes after which partition log gets deleted if exceeding the set amount
 * `NUM_PARTITIONS` - default number of partitions per topic
 * `KAFKA_LOGS_DIR` - partition logs dir
+* `MAX_MESSAGE_SIZE` - set max message size
 
 ```bash
 docker run -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=`docker-machine ip \`docker-machine active\`` --env ADVERTISED_PORT=9092 bemobile/kafka
